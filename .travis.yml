@@ -1,0 +1,24 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t jacpaul/complex-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run jacpaul/complex-test npm test -- --coverage
+
+after_sucess:
+  - docker build -t jacpaul/multi-client ./client
+  - docker build -t jacpaul/multi-nginx ./nginx
+  - docker build -t jacpaul/multi-server ./server
+  - docker build -t jacpaul/multi-worker ./worker
+
+############LOGIN TO the DOCker cli
+
+- echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
+
+- docker push jacpaul/multi-client
+- docker push jacpaul/multi-nginx
+- docker push jacpaul/multi-server
+- docker push jacpaul/multi-worker
