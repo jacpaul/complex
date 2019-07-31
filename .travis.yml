@@ -16,11 +16,10 @@ after_sucess:
   - docker build -t jacpaul/multi-worker ./worker
 
 ############LOGIN TO the DOCker cli
+  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
 
-- echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
-
-- docker push jacpaul/multi-client
-- docker push jacpaul/multi-nginx
-- docker push jacpaul/multi-server
-- docker push jacpaul/multi-worker
+  - docker push jacpaul/multi-client
+  - docker push jacpaul/multi-nginx
+  - docker push jacpaul/multi-server
+  - docker push jacpaul/multi-worker
 
