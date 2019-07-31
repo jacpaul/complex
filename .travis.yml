@@ -1,4 +1,5 @@
 sudo: required
+
 services:
   - docker
 
@@ -22,3 +23,4 @@ after_sucess:
 - docker push jacpaul/multi-nginx
 - docker push jacpaul/multi-server
 - docker push jacpaul/multi-worker
+
